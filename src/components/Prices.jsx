@@ -5,7 +5,9 @@ const AsyncAwait = () => {
   const [prices, setPrices] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/prices");
+    const response = await fetch(
+      "https://mis-music-studios.herokuapp.com/prices",
+    );
     const data = await response.json();
     setPrices(data);
   };

@@ -56,7 +56,7 @@ const AsyncAwait = () => {
     });
     window.location.reload();
   }
-  if (booking.length > 0) {
+  if (mybooking.length > 0) {
     return (
       <>
         <div>

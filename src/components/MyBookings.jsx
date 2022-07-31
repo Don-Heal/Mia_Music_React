@@ -17,7 +17,7 @@ const AsyncAwait = () => {
   const [instrument, setInstrument] = useState();
 
   const fetchData = async () => {
-    const response = await fetch("http://localhost:3000/bookings");
+    const response = await fetch("https://mia-music-studios-api.herokuapp.com");
     const data = await response.json();
     setBookings(data);
   };
@@ -27,7 +27,7 @@ const AsyncAwait = () => {
   }, []);
 
   function deleteBooking(id) {
-    fetch(`http://localhost:3000/bookings/${id}`, {
+    fetch(`https://mia-music-studios-api.herokuapp.com/${id}`, {
       method: "DELETE",
     });
     setBookings(bookings.filter((booking) => booking.id !== id));
@@ -46,7 +46,7 @@ const AsyncAwait = () => {
 
   function updateBooking() {
     let booking = { user_id, username, id, date, time, location, instrument };
-    fetch(`http://localhost:3000/bookings/${id}`, {
+    fetch(`https://mia-music-studios-api.herokuapp.com/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

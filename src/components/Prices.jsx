@@ -6,7 +6,7 @@ const AsyncAwait = () => {
 
   const fetchData = async () => {
     const response = await fetch(
-      "https://mia-music-studios.herokuapp.com/prices",
+      "https://mia-music-studios-api.herokuapp.com/prices",
     );
     const data = await response.json();
     setPrices(data);

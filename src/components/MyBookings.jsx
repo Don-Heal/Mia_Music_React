@@ -58,6 +58,9 @@ const AsyncAwait = () => {
     });
     window.location.reload();
   }
+
+  console.log(mybookings);
+  console.log(loggedInUser);
   return (
     <>
       <div>

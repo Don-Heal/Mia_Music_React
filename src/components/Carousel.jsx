@@ -1,5 +1,5 @@
+import "../test/setupTests";
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import imgone from "../assets/Image1.jpg";

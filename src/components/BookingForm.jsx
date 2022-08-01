@@ -47,7 +47,7 @@ const BookingForm = () => {
         type: "addBooking",
         data: booking,
       });
-      navigate("/bookings");
+      navigate("/mybookings");
     });
   };
 

@@ -16,8 +16,6 @@ const AsyncAwait = () => {
   const [location, setLocation] = useState();
   const [instrument, setInstrument] = useState();
   let admin = sessionStorage.getItem("is_admin");
-  const editBooking = () => setShowResults(true);
-  const [showResults, setShowResults] = React.useState(false);
 
   if (admin === "true") {
     mybookings = bookings;

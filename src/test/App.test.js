@@ -1,8 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from '../components/App';
 
-test('renders About information', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/Mia Music Studios/i);
-  expect(linkElement).toBeInTheDocument();
-});
+describe("Home page", () => {
+  it("renders without crashing", () => {
+    render(<App />);
+  });
+
+  it("renders the 'About' component", () => {
+    render(<App />);
+    expect(screen.getByText(/Mia Music Studios/)).toBeInTheDocument();
+  });
+})

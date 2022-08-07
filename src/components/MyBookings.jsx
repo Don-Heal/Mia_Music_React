@@ -3,68 +3,69 @@ import { useGlobalState } from "../utils/stateContext";
 import { deleteBooking } from "../services/bookingsServices";
 import { getBookings } from "../services/bookingsServices";
 import image from "../assets/mv2.gif";
+
 const MyBookings = () => {
-  const [bookings, setBookings] = useState([]);
-  const { store } = useGlobalState();
-  const { loggedInUser } = store;
-  let mybookings = bookings.filter((booking) => {
-    return booking.username === loggedInUser;
+  const [bookings, setBookings] = useState([]); //stores the bookings
+  const { store } = useGlobalState(); //stores the global state of the application
+  const { loggedInUser } = store; //stores the logged in user
+  let mybookings = bookings.filter((booking) => { //filters the bookings to only show the bookings of the current user
+    return booking.username === loggedInUser; //returns true if the booking username matches the current user
   });
-  const [user_id, setUser_id] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [id, setId] = useState();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
-  const [location, setLocation] = useState();
-  const [instrument, setInstrument] = useState();
-  let admin = sessionStorage.getItem("is_admin");
-  const editBooking = () => setShowResults(true);
-  const [showResults, setShowResults] = React.useState(false);
+  const [user_id, setUser_id] = useState(null); //stores the user id of the current user
+  const [username, setUsername] = useState(null); //stores the username of the current user
+  const [id, setId] = useState(); //stores the id of the current booking
+  const [date, setDate] = useState(); //stores the date of the current booking
+  const [time, setTime] = useState(); //stores the time of the current booking
+  const [location, setLocation] = useState(); //stores the location of the current booking
+  const [instrument, setInstrument] = useState(); //stores the instrument of the current booking
+  let admin = sessionStorage.getItem("is_admin"); //gets the current admin status fron session storage
+  const editBooking = () => setShowResults(true); //shows the edit booking form
+  const [showResults, setShowResults] = React.useState(false);  //shows the edit booking form
 
   if (admin === "true") {
-    mybookings = bookings;
+    mybookings = bookings;  //shows all bookings if the user is an admin
   }
   const fetchData = async () => {
-    getBookings().then((data) => setBookings(data));
+    getBookings().then((data) => setBookings(data));  //fetches all bookings from the database
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData();  //fetches all bookings from the database
   }, []);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line
-    const response = await deleteBooking(id);
-    setShowResults(false);
-    fetchData();
+    const response = await deleteBooking(id); //deletes the booking from the database
+    setShowResults(false);  //hides the edit booking form
+    fetchData();  //fetches all bookings from the database
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData();    //fetches all bookings from the database
   }, []);
 
-  function selectBooking(id) {
-    const booking = bookings.find((booking) => booking.id === id);
-    setUser_id(booking.user_id);
-    setUsername(booking.username);
-    setId(booking.id);
-    setDate(booking.date);
-    setTime(booking.time);
-    setLocation(booking.location);
-    setInstrument(booking.instrument);
+  function selectBooking(id) {  //selects the booking to be edited
+    const booking = bookings.find((booking) => booking.id === id);    //finds the booking to be edited
+    setUser_id(booking.user_id);  //sets the user id of the booking to be edited
+    setUsername(booking.username);    //sets the username of the booking to be edited
+    setId(booking.id);  //sets the id of the booking to be edited
+      setDate(booking.date);  //sets the date of the booking to be edited
+      setTime(booking.time);  //sets the time of the booking to be edited
+    setLocation(booking.location);  //sets the location of the booking to be edited
+    setInstrument(booking.instrument);  //sets the instrument of the booking to be edited
   }
 
   function updateBooking() {
-    let booking = { user_id, username, id, date, time, location, instrument };
+    let booking = { user_id, username, id, date, time, location, instrument };  //creates a booking object to be updated
     fetch(`https://mia-music-studios-api.herokuapp.com/bookings/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(booking),
+      method: "PUT",  //updates the booking in the database
+      headers: {  //sets the headers of the request
+        "Content-Type": "application/json", //sets the content type of the request to json
+      },  
+      body: JSON.stringify(booking),  //sets the body of the request to the booking object
     });
-    window.location.reload();
-    alert("Booking updated");
+    window.location.reload(); //reloads the page
+    alert("Booking updated"); //alerts the user that the booking has been updated
   }
 
   return (

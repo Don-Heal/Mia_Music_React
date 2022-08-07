@@ -3,38 +3,38 @@ import { Link } from "react-router-dom";
 import { getPrices } from "../services/pricesServices";
 import image from "../assets/mv2.gif";
 
-const AsyncAwait = () => {
-  const [prices, setPrices] = useState([]);
-  let admin = sessionStorage.getItem("is_admin");
-  const [id, setPrice_id] = useState();
-  const [price, setPrice] = useState();
+const AsyncAwait = () => {  
+  const [prices, setPrices] = useState([]); //stores the prices of the tickets
+  let admin = sessionStorage.getItem("is_admin"); //gets the current admin status fron session storage
+  const [id, setPrice_id] = useState(); //stores the price id
+  const [price, setPrice] = useState(); //stores the price
 
   const fetchData = async () => {
-    const response = await getPrices();
-    setPrices(response);
+    const response = await getPrices(); //gets the prices
+    setPrices(response);  //sets the prices
   };
 
   function selectPrice(id) {
-    const price = prices.find((price) => price.id === id);
-    setPrice_id(price.id);
-    setPrice(price.price);
+    const price = prices.find((price) => price.id === id);  //finds the price with the id
+    setPrice_id(price.id);  //sets the price id
+    setPrice(price.price);  //sets the price
   }
   function updatePrice() {
-    let newprice = { price, id };
+    let newprice = { price, id }; //creates a new price object
     fetch(`https://mia-music-studios-api.herokuapp.com/prices/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
+      method: "PUT",  //updates the price in the database
+      headers: {  //sets the headers of the request
+        "Content-Type": "application/json", //sets the content type of the request to json
       },
-      body: JSON.stringify(newprice),
+      body: JSON.stringify(newprice), //sets the body of the request to the new price object
     });
-    window.location.reload();
-    alert("Price updated");
-  }
-  console.log(prices);
+    window.location.reload(); //reloads the page
+      alert("Price updated"); //alerts the user that the price has been updated
+    }
+  console.log(prices);  //logs the prices
 
   useEffect(() => {
-    fetchData();
+    fetchData();  //fetches the prices from the database
   }, []);
   if (admin === "true") {
     return (

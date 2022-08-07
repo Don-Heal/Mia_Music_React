@@ -5,54 +5,56 @@ import { deleteUsers } from "../services/userServices";
 import image from "../assets/mv2.gif";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [is_admin, setisAdmin] = useState(false);
-  const [id, setId] = useState();
-  const [username, setUsername] = useState();
-  const editUser = () => setShowResults(true);
-  const [showResults, setShowResults] = React.useState(false);
-  const navigate = useNavigate();
+  const [users, setUsers] = useState([]); //stores the users
+  const [is_admin, setisAdmin] = useState(false); //stores the is_admin
+  const [id, setId] = useState(); //stores the id
+  const [username, setUsername] = useState(); //stores the username
+  const editUser = () => setShowResults(true); //shows the results
+  const [showResults, setShowResults] = React.useState(false); //shows the results
+  const navigate = useNavigate(); //navigates to the edit user form
 
   const fetchData = async () => {
-    const response = await getUsers();
-    setUsers(response);
+    const response = await getUsers(); //fetches all users from the database
+    setUsers(response); //sets the users to the response
   };
 
   function deleteUser(id) {
-    deleteUsers(id)
+    deleteUsers(id) //deletes the user from the database
       .then(() => {
-        fetchData();
+        //if the user is deleted successfully
+        fetchData(); //fetches all users from the database
       })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData(); //fetches all users from the database
   }, []);
 
   function selectUser(id) {
-    let user = users.find((user) => user.id === id);
+    let user = users.find((user) => user.id === id); //finds the user to be edited
     if (user.is_admin === false) {
-      setId(user.id);
-      setUsername(user.username);
-      setisAdmin((user.is_admin = true));
+      //if the user is not an admin
+      setId(user.id); //sets the id of the user to be edited
+      setUsername(user.username); //sets the username of the user to be edited
+      setisAdmin((user.is_admin = true)); //sets the is_admin of the user to be edited
     } else {
-      setId(user.id);
-      setUsername(user.username);
-      setisAdmin((user.is_admin = false));
+      setId(user.id); //sets the id of the user to be edited
+      setUsername(user.username); //sets the username of the user to be edited
+      setisAdmin((user.is_admin = false)); //sets the is_admin of the user to be edited
     }
   }
   function updateUser() {
-    let newuser = { id, username, is_admin };
+    let newuser = { id, username, is_admin }; //creates a new user object
     fetch(`https://mia-music-studios-api.herokuapp.com/users/${id}`, {
-      method: "PUT",
+      method: "PUT", //updates the user in the database
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", //sets the content type of the request to json
       },
-      body: JSON.stringify(newuser),
+      body: JSON.stringify(newuser), //sets the body of the request to the new user object
     });
-    navigate("/");
-    alert("User updated");
+    navigate("/"); //navigates to the home page
+    alert("User updated"); //alerts the user that the user has been updated
   }
 
   return (

@@ -3,27 +3,28 @@ import { Link } from "react-router-dom";
 import { useGlobalState } from "../utils/stateContext";
 
 const Navigation = () => {
-  const { store, dispatch } = useGlobalState();
-  const { loggedInUser } = store;
+  const { store, dispatch } = useGlobalState(); //stores the global state of the application
+  const { loggedInUser } = store; //stores the logged in user
 
   const handleLogout = () => {
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("is_admin");
+    //logs the user out
+    sessionStorage.removeItem("username"); //removes the username from session storage
+    sessionStorage.removeItem("token"); //removes the token from session storage
+    sessionStorage.removeItem("is_admin"); //removes the admin status from session storage
     dispatch({
-      type: "setLoggedInUser",
-      data: null,
+      type: "setLoggedInUser", //dispatches the global state
+      data: null, //dispatches the global state
     });
     dispatch({
-      type: "setToken",
-      data: null,
+      type: "setToken", //dispatches the global state
+      data: null, //dispatches the global state
     });
     dispatch({
-      type: "setIsAdmin",
-      data: null,
+      type: "setIsAdmin", //dispatches the global state
+      data: null, //dispatches the global state
     });
-    alert(" You have logged out successfully");
-    window.location.href = "/";
+    alert(" You have logged out successfully"); //alerts the user that they have logged out successfully
+    window.location.href = "/"; //redirects the user to the home page
   };
 
   return (

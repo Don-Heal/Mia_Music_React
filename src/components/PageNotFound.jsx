@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import image from "../assets/mv2.gif";
 
 const PageNotFound = () => {
+  //this is the component that is rendered if the user tries to access a page that doesn't exist
   return (
     <>
       <p class="text">404 Error - Page not found</p>

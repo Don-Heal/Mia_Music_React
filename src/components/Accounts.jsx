@@ -4,9 +4,9 @@ import { useGlobalState } from "../utils/stateContext";
 import image from "../assets/mv2.gif";
 
 const Accounts = () => {
-  const { store } = useGlobalState();
-  const { loggedInUser } = store;
-  let admin = sessionStorage.getItem("is_admin");
+  const { store } = useGlobalState(); //stores the global state of the application
+  const { loggedInUser } = store; //stores the logged in user
+  let admin = sessionStorage.getItem("is_admin"); //gets the current admin status fron session storage
 
   if (admin === "true") {
     return (

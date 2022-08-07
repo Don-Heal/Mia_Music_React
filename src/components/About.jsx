@@ -3,7 +3,7 @@ import image from "../assets/mv2.gif";
 
 import Carousel from "../components/Carousel";
 
-export default function About() {
+export default function About() {  
   return (
     <div className="About">
       <h1 class="title">Mia Music Studios</h1>

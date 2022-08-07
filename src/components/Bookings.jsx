@@ -5,10 +5,11 @@ import image from "../assets/mv2.gif";
 
 const Bookings = () => {
   // const {store, dispatch} = useGlobalState()
-  const { store } = useGlobalState();
-  const { loggedInUser } = store;
+  const { store } = useGlobalState(); //stores the global state of the application
+  const { loggedInUser } = store; //stores the logged in user
 
   if (loggedInUser) {
+    //if the user is logged in
     return (
       <div>
         <h1 class="title">Bookings</h1>

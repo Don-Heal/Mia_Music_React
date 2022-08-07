@@ -4,32 +4,38 @@ import image from "../assets/mv2.gif";
 
 const Contact = () => {
   const [serverState, setServerState] = useState({
-    submitting: false,
-    status: null,
+    //sets the state of the server
+    submitting: false, //submitting is a boolean that determines if the form is submitting
+    status: null, //status is a string that determines the status of the form
   });
   const handleServerResponse = (ok, msg, form) => {
+    //handles the server response
     setServerState({
-      submitting: false,
-      status: { ok, msg },
+      //sets the state of the server
+      submitting: false, //submitting is a boolean that determines if the form is submitting
+      status: { ok, msg }, //status is a string that determines the status of the form
     });
     if (ok) {
-      form.reset();
+      //if the server response is ok
+      form.reset(); //resets the form
     }
   };
   const handleOnSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    setServerState({ submitting: true });
+    //handles the submit of the form
+    e.preventDefault(); //prevents the default behaviour of the form
+    const form = e.target; //stores the form
+    setServerState({ submitting: true }); //sets the state of the server
     axios({
-      method: "post",
-      url: "https://formspree.io/f/xbjbravy",
-      data: new FormData(form),
+      //sends the form data to the server
+      method: "post", //sends the form data to the server
+      url: "https://formspree.io/f/xbjbravy", //sends the form data to the server
+      data: new FormData(form), //sends the form data to the server
     })
       .then((r) => {
-        handleServerResponse(true, "Thank you for your message!", form);
+        handleServerResponse(true, "Thank you for your message!", form); //handles the server response
       })
       .catch((r) => {
-        handleServerResponse(false, r.response.data.error, form);
+        handleServerResponse(false, r.response.data.error, form); //handles the server response
       });
   };
   return (
